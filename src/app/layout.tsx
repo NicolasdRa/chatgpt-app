@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
+import {SessionProvider} from "./components/SessionProvider";
+import UserButton from "./components/UserButton";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,6 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <SessionProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -36,7 +39,9 @@ export default function RootLayout({
           About
         </Link>
       </div>
-      <div></div>
+      <div>
+        <UserButton/>
+      </div>
     </header>
     
         <div className="flex flex-col md:flex-row">
@@ -45,5 +50,6 @@ export default function RootLayout({
 
       </body>
     </html>
+    </SessionProvider>
   );
 }
