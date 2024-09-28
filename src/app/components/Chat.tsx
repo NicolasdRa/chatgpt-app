@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { getCompletion } from '../server-actions/getCompletion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -14,14 +14,19 @@ export const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState("");
 
+  const chatIdRef = useRef<number | null>(null);
+
   const onClick = async () => {
-    const completions = await getCompletion([
+    const completions = await getCompletion(chatIdRef.current, [
       ...messages,
       {
         role: "user",
         content: message,
       },
     ]);
+
+    chatIdRef.current = completions.id;
+
     setMessage("");
     setMessages(completions.messages);
   };
