@@ -16,12 +16,15 @@ export async function getCompletion(
   },
   )
 
+  // Extract the message correctly as an object, not an array
+  const newMessage = response.choices[0].message as {
+    role: "user" | "assistant";
+    content: string;
+  };
+
   const messages = [
     ...messageHistory,
-    response.choices[0].message as unknown as {
-      role: "user" | "assistant",
-      content: string
-    }[]
+    newMessage
   ]
 
   return { messages }
