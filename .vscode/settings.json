@@ -1,21 +1,29 @@
 {
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
-  "[javascript]": {
-  "editor.defaultFormatter": "vscode.typescript-language-features"
-},
-"[typescript]": {
-  "editor.defaultFormatter": "vscode.typescript-language-features"
-},
-"[html]": {
-  "editor.defaultFormatter": "vscode.html-language-features"
-},
-"[css]": {
-  "editor.defaultFormatter": "vscode.css-language-features"
-},
-"[json]": {
-  "editor.defaultFormatter": "vscode.json-language-features"
-}
+  "editor.tabSize": 2, // You can change this value if you prefer a different tab size
+  "editor.insertSpaces": true, // Indents with spaces instead of tabs
 
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2, // This ensures correct indentation for .tsx files
+    "editor.insertSpaces": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
 
 }
