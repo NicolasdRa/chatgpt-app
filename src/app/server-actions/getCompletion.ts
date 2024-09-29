@@ -4,6 +4,7 @@ import OpenAI, { ClientOptions } from "openai"
 import { getServerSession } from "next-auth"
 import { createChat, updateChat } from "@/db"
 
+
 const OpenAi = new OpenAI(process.env.OPENAI_API_KEY as unknown as ClientOptions)
 
 export async function getCompletion(
@@ -15,7 +16,10 @@ export async function getCompletion(
 ) {
   const response = await OpenAi.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: messageHistory
+    messages: messageHistory.map((message) => ({
+      role: message.role,
+      content: message.content
+    })),
   },
   )
 

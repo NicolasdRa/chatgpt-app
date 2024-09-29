@@ -18,7 +18,7 @@ export async function createChat(userEmail: string, name: string, msgs: Message[
 export async function getChat(chatId: number): Promise<ChatWithMessages | null> {
   const { rows: chats } = await sql`SELECT * FROM chats WHERE id = ${chatId}`;
   if (chats.length === 0) {
-    throw new Error(`Chat ${chatId} not found`);
+    return null;
   }
 
   const { rows: messages } = await sql`SELECT * FROM messages WHERE chat_id = ${chatId}`;

@@ -1,20 +1,27 @@
 'use client'
 
-import { useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation'
 import { getCompletion } from '../server-actions/getCompletion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Message } from '@/types/types';
 
-interface Message {
-  role: "user" | "assistant",
-  content: string
+interface ChatProps {
+  id?: number | null;
+  messages?: Message[];
 }
 
-export const Chat = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+export const Chat: FC<ChatProps> = ({
+  id = null,
+  messages: initialMessages = [] }
+) => {
+  const router = useRouter()
+
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [message, setMessage] = useState("");
 
-  const chatIdRef = useRef<number | null>(null);
+  const chatIdRef = useRef<number | null>(id);
 
   const onClick = async () => {
     const completions = await getCompletion(chatIdRef.current, [
@@ -24,6 +31,11 @@ export const Chat = () => {
         content: message,
       },
     ]);
+
+    if (!chatIdRef.current) {
+      router.push(`/chats/${completions.id}`);
+      router.refresh();
+    }
 
     chatIdRef.current = completions.id;
 
